@@ -43,7 +43,7 @@ def fetch_page_html_requests(url: str) -> str:
     return resp.text
 
 
-def fetch_page_html_selenium(url: str, wait_seconds: int = 5) -> tuple[str, webdriver.Chrome]:
+def fetch_page_html_selenium(url: str, wait_seconds: int = 20) -> tuple[str, webdriver.Chrome]:
     """
     Use a headless Chrome browser so that the page's JavaScript runs
     and populates any dynamic content before we read the HTML.
