@@ -38,14 +38,23 @@ def start_driver():
 
     options = Options()
 
-    # comment this out if you want to see Chrome
-    # options.add_argument("--headless=new")
+    # Required for GitHub Actions
+    options.add_argument("--headless=new")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--window-size=1920,1080")
 
-    options.add_argument("--window-size=1400,1000")
+    # Helps some React apps render properly in CI
+    options.add_argument("--remote-debugging-port=9222")
 
     service = Service(ChromeDriverManager().install())
 
-    return webdriver.Chrome(service=service, options=options)
+    driver = webdriver.Chrome(service=service, options=options)
+
+    driver.set_page_load_timeout(60)
+
+    return driver
 
 
 def wait_for_iframe(driver):
